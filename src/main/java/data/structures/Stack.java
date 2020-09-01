@@ -1,2 +1,4 @@
-package data.structures;public class Stack {
+package data.structures;
+
+public class Stack {
 }
