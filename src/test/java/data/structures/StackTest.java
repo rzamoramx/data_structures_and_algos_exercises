@@ -130,6 +130,7 @@ class StackTest {
         List<String> actual = stack.inverse();
 
         System.out.println(actual);
+        System.out.println("indexTop: " + stack.getIndexTop());
 
         assertEquals(expected, actual);
     }

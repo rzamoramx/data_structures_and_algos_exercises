@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Stack<T> {
     private List<T> data = new ArrayList<>();
+    private int indexTop = 0;
 
     public List<T> interlace(List<T> s) {
         if (data.isEmpty())
@@ -27,6 +28,7 @@ public class Stack<T> {
 
         ma = null;
         mi = null;
+        indexTop = data.size()-1;
         return data;
     }
 
@@ -35,6 +37,7 @@ public class Stack<T> {
 
         data.addAll(s);
 
+        indexTop = data.size()-1;
         return data;
     }
 
@@ -49,6 +52,7 @@ public class Stack<T> {
         data = tmp;
 
         tmp = null;
+        indexTop = data.size()-1;
         return data;
     }
 
@@ -59,6 +63,7 @@ public class Stack<T> {
             return data;
 
         Collections.reverse(data);
+        indexTop = data.size()-1;
         return data;
     }
 
@@ -76,11 +81,13 @@ public class Stack<T> {
         throwEmptyException();
 
         data.remove(data.size()-1);
+        indexTop = data.size()-1;
         return data;
     }
 
     public List<T> push(T elem) {
         data.add(elem);
+        indexTop = data.size()-1;
         return data;
     }
 
@@ -97,5 +104,13 @@ public class Stack<T> {
     private void throwEmptyException() {
         if (data.isEmpty())
             throw new ArrayIndexOutOfBoundsException("the stack is empty");
+    }
+
+    public int getIndexTop() {
+        return indexTop;
+    }
+
+    public void setIndexTop(int indexTop) {
+        this.indexTop = indexTop;
     }
 }
