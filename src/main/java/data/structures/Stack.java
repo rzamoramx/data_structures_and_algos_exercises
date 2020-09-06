@@ -1,12 +1,24 @@
 package data.structures;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Stack<T> {
     private List<T> data = new ArrayList<>();
     private int indexTop = 0;
+
+    public List<T> copy() {
+        List<T> tmp = new ArrayList<>();
+        Collections.copy(tmp, data);
+
+        return tmp;
+    }
+
+    public void empty() {
+        data = new ArrayList<>();
+    }
 
     public List<T> interlace(List<T> s) {
         if (data.isEmpty())
@@ -112,5 +124,12 @@ public class Stack<T> {
 
     public void setIndexTop(int indexTop) {
         this.indexTop = indexTop;
+    }
+
+    @Override
+    public String toString() {
+        return "Stack{" +
+                "data=" + Arrays.toString(data.toArray()) +
+                '}';
     }
 }
