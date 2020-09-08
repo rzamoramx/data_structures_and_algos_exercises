@@ -27,7 +27,7 @@ class StackTest {
     void pop_fail() {
         Exception exception = assertThrows(ArrayIndexOutOfBoundsException.class, stack::pop);
 
-        String expectedMsg = "the stack is empty";
+        String expectedMsg = "the data is empty";
         String actualMsg = exception.getMessage();
 
         assertTrue(actualMsg.contains(expectedMsg));
