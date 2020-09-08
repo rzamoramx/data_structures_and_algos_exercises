@@ -3,6 +3,7 @@ package data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
 
 public class DataOperation<T> {
     protected List<T> data = new ArrayList<>();
@@ -11,27 +12,27 @@ public class DataOperation<T> {
         data = new ArrayList<>();
     }
 
-    public List<T> interlace(List<T> s) {
-        data
-        if (data.isEmpty())
-            return s;
-        else if (s.isEmpty())
-            return data;
-
-        List<T> ma  = (data.size() > s.size())? data: s;
-        List<T> mi  = (data.size() <= s.size())? data: s;
+    // TODO maybe improve performance with linked list
+    public List<T> interlace(List<T> list2) {
+        ListIterator<T> it1 = data.listIterator();
+        ListIterator<T> it2 = list2.listIterator();
 
         data = new ArrayList<>();
-        int idx = 0;
-        for (T elem: ma) {
-            data.add(elem);
-            if (mi.size() >= idx)
-                data.add(mi.get(idx));
-            idx++;
+
+        while (it1.hasNext() && it2.hasNext()) {
+            data.add(it1.next());
+            data.add(it2.next());
         }
 
-        ma = null;
-        mi = null;
+        while (it1.hasNext()) {
+            data.add(it1.next());
+        }
+
+        while (it2.hasNext()) {
+            data.add(it2.next());
+        }
+
+        it1 = null; it2 = null;
         return data;
     }
 

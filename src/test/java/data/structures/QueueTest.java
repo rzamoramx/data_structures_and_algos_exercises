@@ -97,4 +97,20 @@ class QueueTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    void interlace() {
+        List<String> expected = List.of(
+                "1e - 1L", "1e - 2L",
+                "2e - 1L", "2e - 2L", "3e - 2L");
+
+        queue.turn("1e - 1L");
+        queue.turn("2e - 1L");
+
+        List<String> second_list = List.of("1e - 2L", "2e - 2L", "3e - 2L");
+
+        List<String> actual = queue.interlace(second_list);
+
+        assertEquals(expected, actual);
+    }
 }

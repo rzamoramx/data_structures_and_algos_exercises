@@ -70,17 +70,15 @@ class StackTest {
     @Test
     void interlace() {
         List<String> expected = List.of(
-                "one element, second list", "one element, first list",
-                "two element, second list", "two element, first list");
+                "1e - 1L", "1e - 2L",
+                "2e - 1L", "2e - 2L", "3e - 2L");
 
-        stack.push("one element, first list");
-        stack.push("two element, first list");
+        stack.push("1e - 1L");
+        stack.push("2e - 1L");
 
-        List<String> second_list = List.of("one element, second list", "two element, second list");
+        List<String> second_list = List.of("1e - 2L", "2e - 2L", "3e - 2L");
 
         List<String> actual = stack.interlace(second_list);
-
-        System.out.println(actual);
 
         assertEquals(expected, actual);
     }
