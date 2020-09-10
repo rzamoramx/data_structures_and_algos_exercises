@@ -10,6 +10,14 @@ public class Queue<T> extends DataOperation<T> {
         return data;
     }
 
+    public T quiteLast() {
+        throwEmptyException();
+
+        T elem = data.get(data.size()-1);
+        data.remove(data.size()-1);
+        return elem;
+    }
+
     public T forward() {
         throwEmptyException();
 
