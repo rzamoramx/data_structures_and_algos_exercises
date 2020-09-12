@@ -1,8 +1,60 @@
 package algos;
 
+import java.util.Arrays;
+
 public class DivideAndConquer {
     private long numberToGuess = 0;
 
+    // ************ Coincidence number **********
+    public int coincidenceIndexIn(int[] in, int i, int s) {
+        System.out.println("in: " + Arrays.toString(in) + ", i: " + i + ", s: " + s);
+        if (i > s)
+            return -1;
+        if (i == s)
+            return i;
+
+        int m = (i + s) / 2;
+
+        if (m < in[m])
+            return coincidenceIndexIn(in, i, m - 1);
+        if (m == in[m])
+            return m;
+        if (m > in[m])
+            return coincidenceIndexIn(in, m + 1, s);
+
+        return -1;
+    }
+
+    // ************ Existing number **********
+    public boolean existsNumberIn(int search, int[] in) {
+        if (in.length==0)
+            return false;
+
+        if (in.length == 1 && in[0] != search)
+            return false;
+        else if (in.length == 1)
+            return true;
+
+        int m = (in.length-1) / 2;
+
+        if (search == in[m]) {
+            return true;
+        }
+
+        int i = 0;
+        int e = m;
+
+        if (search > in[m]) {
+            i = m + 1;
+            e = in.length;
+        }
+
+        System.out.println("i: " + i + ", e: " + e + ", range: " + Arrays.toString(Arrays.copyOfRange(in, i, e)));
+
+        return existsNumberIn(search, Arrays.copyOfRange(in, i, e));
+    }
+
+    // ************ Guess number ************
     public long guessNumber(long numberToGuess) {
         this.numberToGuess = numberToGuess;
 
