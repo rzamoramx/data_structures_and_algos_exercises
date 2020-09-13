@@ -8,24 +8,69 @@ public class CryptoToy {
     private static final String VOWELS = "AEIOUaeiou";
 
     public static void main(String[] args) {
-        String result = encode("Anacleto, agente secreto");
-        System.out.println("result: " + result);
+        String encodeResult = encode("Anacleto, agente secreto");
+        System.out.println("encode result: " + encodeResult);
+        String decodeResult = decode(encodeResult);
+        System.out.println("decode result: " + decodeResult);
+    }
+
+    public static String decode(String message) {
+        Queue<Character> xP = decodePart1(message);
+        System.out.println("decode part 1: " + xP.toString());
+        return decodePart2(xP);
     }
 
     public static String encode(String message) {
         Queue<Character> xP = encodePart1(message);
+        System.out.println("encode part 1: " + xP.toString());
         return encodePart2(xP);
     }
 
-    public void decodePart1() {
-        
+    public static String decodePart2(Queue<Character> xP) {
+        String x = "";
+        Stack<Character> s = new Stack<>();
+        xP.inverse();
+
+        while (!xP.isEmpty()) {
+            if (!isVowel(xP.first())) {
+                s.push(xP.first());
+            }
+            else {
+                x += dumpStackIntoString(s) + xP.first();
+            }
+            xP.forward();
+        }
+
+        x += dumpStackIntoString(s);
+        return x;
+    }
+
+    public static Queue<Character> decodePart1(String message) {
+        Queue<Character> xP = new Queue<>();
+        Stack<Character> s = new Stack<>();
+
+        int n = 1;
+        for (char ch: message.toCharArray()) {
+            if (!MathUtils.isEven(n))
+                xP.turn(ch);
+            else
+                s.push(ch);
+            n++;
+        }
+
+        while (!s.isEmpty()) {
+            xP.turn(s.top());
+            s.pop();
+        }
+
+        return xP;
     }
 
     public static String encodePart2(Queue<Character> xP) {
         String xPP = "";
         int n = 1;
+        char x;
         while (!xP.isEmpty()) {
-            char x;
             if (MathUtils.isEven(n)) {
                 x = xP.first();
                 xP.forward();
@@ -36,7 +81,6 @@ public class CryptoToy {
             }
             xPP += x;
             n++;
-            //System.out.println("xPP: " + xPP);
         }
         return xPP;
     }
@@ -67,5 +111,14 @@ public class CryptoToy {
             q.turn(s.top());
             s.pop();
         }
+    }
+
+    private static String dumpStackIntoString(Stack<Character> s) {
+        String x = "";
+        while (!s.isEmpty()) {
+            x += s.top();
+            s.pop();
+        }
+        return x;
     }
 }
